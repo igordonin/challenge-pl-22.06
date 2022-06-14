@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import e from 'express';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
 import { UsersController } from './users.controller';
