@@ -6,7 +6,7 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private repository: Repository<User>) { }
+  constructor(@InjectRepository(User) private repository: Repository<User>) {}
 
   create(userDto: CreateUserDto) {
     const { email, password } = userDto;
@@ -18,8 +18,8 @@ export class UsersService {
     return this.repository.findOneBy({ id });
   }
 
-  find(email: string) {
-    return this.repository.find({ where: { email } });
+  findOneByEmail(email: string) {
+    return this.repository.findOneBy({ email });
   }
 
   async update(id: number, userAttributes: Partial<User>) {
