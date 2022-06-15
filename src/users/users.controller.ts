@@ -11,8 +11,8 @@ import {
   Session,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { Serialize } from 'src/interceptors/serialize-interceptor';
+import { AuthGuard } from '../guards/auth.guard';
+import { Serialize } from '../interceptors/serialize-interceptor';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CreateUserDto } from './dtos/create-user-dto';
@@ -62,7 +62,7 @@ export class UsersController {
   }
 
   @Get('/:id')
-  async findUser(@Param('id') id: string) {
+  async findUserById(@Param('id') id: string) {
     const user = await this.usersService.findOneById(parseInt(id));
 
     if (!user) {
@@ -73,8 +73,14 @@ export class UsersController {
   }
 
   @Get()
-  findUsers(@Query('email') email: string) {
-    return this.usersService.findOneByEmail(email);
+  async findUserByEmail(@Query('email') email: string) {
+    const user = await this.usersService.findOneByEmail(email);
+
+    if (!user) {
+      throw new NotFoundException(`User not found`);
+    }
+
+    return user;
   }
 
   @Delete('/:id')
