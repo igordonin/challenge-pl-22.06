@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
-import { Customer } from './customer';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, Stack } from '@mui/material';
-
-interface CustomersHomeProps {
-  customers: Customer[];
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '../../reducers';
+import { fetchCustomers } from './customers.state';
+import { Link } from 'react-router-dom';
 
 const columns: GridColDef[] = [
   {
@@ -26,13 +25,22 @@ const columns: GridColDef[] = [
   },
 ];
 
-export const CustomersHome = ({ customers }: CustomersHomeProps) => {
+export const CustomersHome = () => {
+  const customers = useSelector((state: StoreState) => state.customers);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(fetchCustomers());
+  }, [customers]);
+
   return (
     <div>
       <h1>Customers Home</h1>
 
       <Stack direction="row-reverse" spacing={2}>
-        <Button variant="contained">New Customer</Button>
+        <Button component={Link} to="/customers/new" variant="contained">
+          New Customer
+        </Button>
       </Stack>
 
       <div style={{ height: 400, width: '100%' }}>
