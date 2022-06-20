@@ -58,12 +58,12 @@ export class UsersController {
 
   @Patch('/:id')
   updateUser(@Param('id') id: string, @Body() userDto: UpdateUserDto) {
-    return this.usersService.update(parseInt(id), userDto);
+    return this.usersService.update(id, userDto);
   }
 
   @Get('/:id')
   async findUserById(@Param('id') id: string) {
-    const user = await this.usersService.findOneById(parseInt(id));
+    const user = await this.usersService.findOneById(id);
 
     if (!user) {
       throw new NotFoundException(`User identified by ${id} not found`);
@@ -85,6 +85,6 @@ export class UsersController {
 
   @Delete('/:id')
   removeUser(@Param('id') id: string) {
-    return this.usersService.remove(parseInt(id));
+    return this.usersService.remove(id);
   }
 }
