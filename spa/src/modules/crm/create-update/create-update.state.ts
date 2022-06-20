@@ -1,30 +1,37 @@
-import { CreateCustomerStepsModel } from './customers.types';
+import { CreateCustomerStepsModel, PersonalInfoModel } from './customers.types';
 
 enum ActionTypes {
-  SAVE_CREATE_CUSTOMER_STEP = '@challenge/crm/customers/create-update/SAVE_CREATE_CUSTOMER_STEP',
+  SAVE_PERSONAL_INFO = '@challenge/crm/customers/create-update/SAVE_PERSONAL_INFO',
 }
 
-export interface CreateUpdateCustomerAction {
-  type: ActionTypes;
-  payload: CreateCustomerStepsModel;
+export interface SavePersonalInfoAction {
+  type: ActionTypes.SAVE_PERSONAL_INFO;
+  payload: PersonalInfoModel;
 }
+
+type SaveCreateCustomerStep = SavePersonalInfoAction;
 
 export default function reducer(
   state: CreateCustomerStepsModel,
-  action: CreateUpdateCustomerAction
+  action: SaveCreateCustomerStep
 ) {
+  action;
+
   switch (action.type) {
-    case ActionTypes.SAVE_CREATE_CUSTOMER_STEP:
-      return action.payload;
+    case ActionTypes.SAVE_PERSONAL_INFO:
+      return {
+        ...state,
+        personalInfo: action.payload,
+      };
 
     default:
       return state;
   }
 }
 
-export const saveCreateCustomerStep = (model: CreateCustomerStepsModel) => {
+export const savePersonalInfoStep = (model: PersonalInfoModel) => {
   return {
-    type: ActionTypes.SAVE_CREATE_CUSTOMER_STEP,
+    type: ActionTypes.SAVE_PERSONAL_INFO,
     payload: model,
   };
 };

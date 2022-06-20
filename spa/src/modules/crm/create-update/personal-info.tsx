@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { PersonalInfoModel } from './customers.types';
-import { saveCreateCustomerStep } from './create-update.state';
+import { savePersonalInfoStep } from './create-update.state';
 
 export const PersonalInfo = () => {
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfoModel>({
@@ -27,9 +27,7 @@ export const PersonalInfo = () => {
   React.useEffect(() => {
     return () => {
       const dispatch = useDispatch();
-      dispatch(
-        saveCreateCustomerStep({ personalInfo, companyInfo: {}, kpis: {} })
-      );
+      dispatch(savePersonalInfoStep(personalInfo));
     };
   }, [personalInfo]);
 
