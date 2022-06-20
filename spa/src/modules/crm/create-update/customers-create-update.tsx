@@ -11,7 +11,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
 import { PersonalInfo } from './personal-info';
 import { CompanyInfo } from './company-info';
-import Review from './review';
+import { KpisInfo } from './kpis-info';
 
 const steps = ['Personal Info', 'Company Info', 'KPIs'];
 
@@ -22,7 +22,7 @@ function getStepContent(step: number) {
     case 1:
       return <CompanyInfo />;
     case 2:
-      return <Review />;
+      return <KpisInfo />;
     default:
       throw new Error('Unknown step');
   }
@@ -95,7 +95,7 @@ export const CustomersCreateUpdate = () => {
                     onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Save Customer' : 'Next'}
                   </Button>
                 </Box>
               </React.Fragment>
