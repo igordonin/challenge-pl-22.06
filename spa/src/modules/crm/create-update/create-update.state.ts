@@ -11,12 +11,23 @@ export interface SavePersonalInfoAction {
 
 type SaveCreateCustomerStep = SavePersonalInfoAction;
 
+const initialState = {
+  personalInfo: {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    jobTitle: '',
+    lastContactUtcDate: null,
+  },
+  companyInfo: {},
+  kpis: {},
+};
+
 export default function reducer(
-  state: CreateCustomerStepsModel,
+  state: CreateCustomerStepsModel = initialState,
   action: SaveCreateCustomerStep
 ) {
-  action;
-
   switch (action.type) {
     case ActionTypes.SAVE_PERSONAL_INFO:
       return {

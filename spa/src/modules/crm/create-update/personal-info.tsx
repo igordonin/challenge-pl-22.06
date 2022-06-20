@@ -1,21 +1,20 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { PersonalInfoModel } from './customers.types';
 import { savePersonalInfoStep } from './create-update.state';
+import { StoreState } from '../../../reducers';
 
 export const PersonalInfo = () => {
-  const [personalInfo, setPersonalInfo] = React.useState<PersonalInfoModel>({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    jobTitle: '',
-    lastContactUtcDate: null,
+  const initialValue = useSelector((state: StoreState) => {
+    return state.createUpdateCustomer.personalInfo;
   });
+
+  const [personalInfo, setPersonalInfo] =
+    React.useState<PersonalInfoModel>(initialValue);
 
   const setProperty = (name: string, value: string | null | undefined) => {
     setPersonalInfo({
@@ -24,9 +23,10 @@ export const PersonalInfo = () => {
     });
   };
 
+  const dispatch = useDispatch();
+
   React.useEffect(() => {
     return () => {
-      const dispatch = useDispatch();
       dispatch(savePersonalInfoStep(personalInfo));
     };
   }, [personalInfo]);
