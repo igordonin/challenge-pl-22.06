@@ -10,9 +10,9 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
 
-import { PersonalInfo } from './personal-info';
-import PaymentForm from './PaymentForm';
-import Review from './Review';
+import { PersonalInfo } from '../personal-info';
+import PaymentForm from '../PaymentForm';
+import Review from '../Review';
 
 const steps = ['Personal Info', 'Company Info', 'KPIs'];
 

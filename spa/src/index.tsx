@@ -8,7 +8,7 @@ import { App } from './app';
 import { reducers } from './reducers';
 import { LandingPage } from './components/landing-page';
 import { SignUp } from './modules/auth/sign-up';
-import { CustomersCreateUpdate } from './modules/crm/customers-create-update';
+import { CustomersCreateUpdate } from './modules/crm/create-update/customers-create-update';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
