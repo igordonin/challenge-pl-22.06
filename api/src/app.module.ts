@@ -26,7 +26,6 @@ const cookieSession = require('cookie-session');
           host: config.get<string>('DB_HOST'),
           database: 'api',
           entities: [User, Customer],
-          synchronize: true,
         };
       },
     }),
@@ -40,6 +39,7 @@ const cookieSession = require('cookie-session');
       provide: APP_PIPE,
       useValue: new ValidationPipe({
         whitelist: true,
+        transform: true,
       }),
     },
   ],
@@ -50,6 +50,10 @@ export class AppModule {
       .apply(
         cookieSession({
           keys: ['asdfghjkl'],
+          // TODO
+          // domain: 'http://localhost:3000',
+          secure: false,
+          httpOnly: false,
         }),
       )
       .forRoutes('*');
