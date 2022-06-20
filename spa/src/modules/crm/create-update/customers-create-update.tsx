@@ -9,9 +9,8 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
-
 import { PersonalInfo } from './personal-info';
-import PaymentForm from './payment-form';
+import PaymentForm from './company-info';
 import Review from './review';
 
 const steps = ['Personal Info', 'Company Info', 'KPIs'];
