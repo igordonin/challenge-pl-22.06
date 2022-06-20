@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: spa-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spa
+  template:
+    metadata:
+      labels:
+        app: spa
+    spec:
+      containers:
+        - name: spa
+          image: us.gcr.io/challenge-pl/spa
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spa-srv
+spec:
+  selector:
+    app: spa
+  ports:
+    - name: spa
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
