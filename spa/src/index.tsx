@@ -5,7 +5,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import { App } from './app';
-import { reducers } from './reducers';
+import { reducers } from './reducers/root-reducer';
 import { LandingPage } from './components/landing-page';
 import { SignUp } from './modules/auth/sign-up';
 import { CustomersCreateUpdate } from './modules/crm/create-update/customers-create-update';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { StoreState } from '../../../reducers';
+import { StoreState } from '../../../reducers/root-reducer';
 import { CompanyInfoModel } from './customers.types';
 import { saveCompanyInfoStep } from './create-update.state';
 

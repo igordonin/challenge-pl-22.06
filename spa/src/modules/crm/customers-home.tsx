@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../reducers';
+import { StoreState } from '../../reducers/root-reducer';
 import { fetchCustomers } from './customers.state';
 import { Link } from 'react-router-dom';
 
