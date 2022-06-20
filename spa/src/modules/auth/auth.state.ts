@@ -32,13 +32,11 @@ interface UserSignIn {
 }
 
 export const signIn = (userSignIn: UserSignIn) => {
-  return async (dispatch: Dispatch) => {
-    dispatch<AuthAction>({
-      type: AuthActionTypes.SIGN_IN,
-      payload: {
-        id: 1,
-        email: 'teste',
-      },
-    });
+  return {
+    type: AuthActionTypes.SIGN_IN,
+    payload: {
+      id: 1,
+      email: 'teste',
+    },
   };
 };
