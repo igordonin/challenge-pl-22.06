@@ -22,8 +22,9 @@ const cookieSession = require('cookie-session');
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
         return {
-          type: 'sqlite',
-          database: config.get<string>('DB_NAME'),
+          type: 'mongodb',
+          host: config.get<string>('DB_HOST'),
+          database: 'api',
           entities: [User, Customer],
           synchronize: true,
         };

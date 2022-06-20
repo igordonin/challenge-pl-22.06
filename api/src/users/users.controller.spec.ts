@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ObjectID } from 'typeorm';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
 import { UsersController } from './users.controller';
@@ -13,16 +14,16 @@ describe('UsersController', () => {
     usersServiceMock = {
       // remove: () => {},
       // update: () => {},
-      findOneById: (id: number) => {
+      findOneById: (id: string) => {
         return Promise.resolve({
-          id,
+          id: new ObjectID(id),
           email: 'whatever@email.com',
           password: 'asdf',
         } as User);
       },
       findOneByEmail: (email: string) => {
         return Promise.resolve({
-          id: 1,
+          id: new ObjectID(),
           email,
           password: 'asdf',
         } as User);
@@ -33,7 +34,7 @@ describe('UsersController', () => {
       // signup: () => {},
       authenticateUser: (email: string, password: string) => {
         return Promise.resolve({
-          id: 1,
+          id: new ObjectID(),
           email,
           password,
         } as User);
