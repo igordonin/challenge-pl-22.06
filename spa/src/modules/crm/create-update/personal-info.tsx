@@ -4,8 +4,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { saveCreateCustomerStep } from './customers.state';
-import { PersonalInfoModel } from './customers.types';
+import { saveCreateCustomerStep } from '../customers.state';
+import { PersonalInfoModel } from '../customers.types';
 
 export const PersonalInfo = () => {
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfoModel>({
