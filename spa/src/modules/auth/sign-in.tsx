@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { signIn } from './auth.state';
+import { Stack } from '@mui/material';
 
 interface ControlledFieldsProps {
   value: string;
@@ -72,24 +73,17 @@ const SignInButton = () => {
 
 const BottomMenu = () => {
   return (
-    <Grid container>
-      <Grid item xs>
-        <Link href="#" variant="body2">
-          Forgot password?
-        </Link>
-      </Grid>
-      <Grid item>
-        <Link href="#" variant="body2">
-          {"Don't have an account? Sign Up"}
-        </Link>
-      </Grid>
-    </Grid>
+    <Stack>
+      <Button component={Link} to="/">
+        Forgot password?
+      </Button>
+
+      <Button component={Link} to="/sign-up">
+        {"Don't have an account? Sign Up"}
+      </Button>
+    </Stack>
   );
 };
-
-interface SignInProps {
-  signInFn(): any;
-}
 
 export const SignIn = (): JSX.Element => {
   const dispatch = useDispatch();
