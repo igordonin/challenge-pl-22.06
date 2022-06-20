@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import { User } from './user';
 
 enum AuthActionTypes {
