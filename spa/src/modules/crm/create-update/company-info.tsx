@@ -1,65 +1,76 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
+import * as ReactRedux from 'react-redux';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import { StoreState } from '../../../reducers';
+import { CompanyInfoModel } from './customers.types';
+import { saveCompanyInfoStep } from './create-update.state';
 
-export default function PaymentForm() {
+export const CompanyInfo = () => {
+  const initialValue = ReactRedux.useSelector((state: StoreState) => {
+    return state.createUpdateCustomer.companyInfo;
+  });
+
+  const [companyInfo, setCompanyInfo] =
+    React.useState<CompanyInfoModel>(initialValue);
+
+  const setProperty = (name: string, value: string | null | undefined) => {
+    setCompanyInfo({
+      ...companyInfo,
+      [name]: value,
+    });
+  };
+
+  const dispatch = ReactRedux.useDispatch();
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(saveCompanyInfoStep(companyInfo));
+    };
+  }, [companyInfo]);
+
+  const { companyName, companyCountry, companyWebsite } = companyInfo;
+
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Payment method
-      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
+            value={companyName}
+            onChange={(e) => {
+              setProperty('companyName', e.target.value);
+            }}
             required
-            id="cardName"
-            label="Name on card"
+            label="Company Name"
             fullWidth
-            autoComplete="cc-name"
             variant="standard"
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
+            value={companyCountry}
+            onChange={(e) => {
+              setProperty('companyCountry', e.target.value);
+            }}
             required
-            id="cardNumber"
-            label="Card number"
+            label="Country"
             fullWidth
-            autoComplete="cc-number"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="expDate"
-            label="Expiry date"
-            fullWidth
-            autoComplete="cc-exp"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            required
-            id="cvv"
-            label="CVV"
-            helperText="Last three digits on signature strip"
-            fullWidth
-            autoComplete="cc-csc"
             variant="standard"
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
+          <TextField
+            value={companyWebsite}
+            onChange={(e) => {
+              setProperty('companyWebsite', e.target.value);
+            }}
+            required
+            label="Website"
+            fullWidth
+            variant="standard"
           />
         </Grid>
       </Grid>
     </React.Fragment>
   );
-}
+};

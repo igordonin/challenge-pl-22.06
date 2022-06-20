@@ -7,8 +7,21 @@ export interface PersonalInfoModel {
   lastContactUtcDate: string | null | undefined;
 }
 
+export interface CompanyInfoModel {
+  companyName: string;
+  companyCountry: string;
+  companyWebsite: string;
+}
+
+export interface KpisModel {
+  netPromoterScore: number;
+  customerSatisfactionScore: number;
+  customerEffortScore: number;
+  leadScore: number;
+}
+
 export interface CreateCustomerStepsModel {
   personalInfo: PersonalInfoModel;
-  companyInfo: {};
-  kpis: {};
+  companyInfo: CompanyInfoModel;
+  kpis: KpisModel;
 }

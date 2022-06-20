@@ -10,7 +10,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
 import { PersonalInfo } from './personal-info';
-import PaymentForm from './company-info';
+import { CompanyInfo } from './company-info';
 import Review from './review';
 
 const steps = ['Personal Info', 'Company Info', 'KPIs'];
@@ -20,7 +20,7 @@ function getStepContent(step: number) {
     case 0:
       return <PersonalInfo />;
     case 1:
-      return <PaymentForm />;
+      return <CompanyInfo />;
     case 2:
       return <Review />;
     default:
@@ -106,48 +106,3 @@ export const CustomersCreateUpdate = () => {
     </div>
   );
 };
-
-/**
- * 
- * @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  fullName: string;
-
-  @Column()
-  phoneNumber: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  jobTitle: string;
-
-  @Column()
-  lastContactUtcDate: string;
-
-  // TODO extract company data to its own entity
-  @Column()
-  companyName: string;
-
-  @Column()
-  companyCountry: string;
-
-  @Column()
-  companyWebsite: string;
-
-  // TODO extract kpis
-  @Column()
-  netPromoterScore: number;
-
-  @Column()
-  customerSatisfactionScore: number;
-
-  @Column()
-  customerEffortScore: number;
-
-  @Column()
-  leadScore: number;
- * 
- */
