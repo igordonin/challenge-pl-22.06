@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,9 +10,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
 
-import { StoreState } from '../../reducers';
-import { fetchCustomers } from './customers.state';
-import AddressForm from './personal-info';
+import { PersonalInfo } from './personal-info';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 
@@ -22,7 +19,7 @@ const steps = ['Personal Info', 'Company Info', 'KPIs'];
 function getStepContent(step: number) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <PersonalInfo />;
     case 1:
       return <PaymentForm />;
     case 2:
@@ -33,13 +30,6 @@ function getStepContent(step: number) {
 }
 
 export const CustomersCreateUpdate = () => {
-  const customers = useSelector((state: StoreState) => state.customers);
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(fetchCustomers());
-  }, [customers]);
-
   //
   const [activeStep, setActiveStep] = React.useState(0);
 
