@@ -10,7 +10,7 @@ import {
   Stack,
   Toolbar,
 } from '@mui/material';
-import { StoreState } from './reducers/root-reducer';
+import { StoreState } from './root-reducer';
 
 const AuthenticatedButtons = () => {
   return (

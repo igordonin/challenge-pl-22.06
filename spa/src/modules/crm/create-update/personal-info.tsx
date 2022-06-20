@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { PersonalInfoModel } from './customers.types';
 import { savePersonalInfoStep } from './create-update.state';
-import { StoreState } from '../../../reducers/root-reducer';
+import { StoreState } from '../../../root-reducer';
 
 export const PersonalInfo = () => {
   const initialValue = useSelector((state: StoreState) => {
