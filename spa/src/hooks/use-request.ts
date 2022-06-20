@@ -4,7 +4,7 @@ import axios, { AxiosError } from 'axios';
 interface ClientRequest {
   url: string;
   method: 'get' | 'post' | 'put' | 'delete';
-  body: {};
+  body?: {};
   onSuccess?: Function;
 }
 

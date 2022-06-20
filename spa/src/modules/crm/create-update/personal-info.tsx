@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DateFnsUtils from '@date-io/date-fns';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
+import { Grid, TextField } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { PersonalInfoModel } from './create-update.types';
 import { savePersonalInfoStep } from './create-update.state';

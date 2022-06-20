@@ -6,9 +6,14 @@ import {
 } from './create-update.types';
 
 enum ActionTypes {
+  RESET_STEPS = '@challenge/crm/customers/create-update/RESET_STEPS',
   SAVE_PERSONAL_INFO = '@challenge/crm/customers/create-update/SAVE_PERSONAL_INFO',
   SAVE_COMPANY_INFO = '@challenge/crm/customers/create-update/SAVE_COMPANY_INFO',
   SAVE_KPIS_INFO = '@challenge/crm/customers/create-update/SAVE_KPIS_INFO',
+}
+
+interface ResetStepsAction {
+  type: ActionTypes.RESET_STEPS;
 }
 
 interface SavePersonalInfoAction {
@@ -27,6 +32,7 @@ interface SaveKpisInfoAction {
 }
 
 type SaveCreateCustomerStep =
+  | ResetStepsAction
   | SavePersonalInfoAction
   | SaveCompanyInfoAction
   | SaveKpisInfoAction;
@@ -76,10 +82,19 @@ export default function reducer(
         kpis: action.payload,
       };
 
+    case ActionTypes.RESET_STEPS:
+      return initialState;
+
     default:
       return state;
   }
 }
+
+export const resetSteps = () => {
+  return {
+    type: ActionTypes.RESET_STEPS,
+  };
+};
 
 export const savePersonalInfoStep = (model: PersonalInfoModel) => {
   return {

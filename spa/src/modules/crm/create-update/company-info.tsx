@@ -40,7 +40,6 @@ export const CompanyInfo = () => {
             onChange={(e) => {
               setProperty('companyName', e.target.value);
             }}
-            required
             label="Company Name"
             fullWidth
             variant="standard"
@@ -52,7 +51,6 @@ export const CompanyInfo = () => {
             onChange={(e) => {
               setProperty('companyCountry', e.target.value);
             }}
-            required
             label="Country"
             fullWidth
             variant="standard"
@@ -64,7 +62,6 @@ export const CompanyInfo = () => {
             onChange={(e) => {
               setProperty('companyWebsite', e.target.value);
             }}
-            required
             label="Website"
             fullWidth
             variant="standard"
