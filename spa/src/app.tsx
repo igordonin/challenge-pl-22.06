@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link as RouterLink, Outlet } from 'react-router-dom';
-import { Button, Container, CssBaseline, Grid, Stack } from '@mui/material';
-import { Customer } from './modules/crm/customer';
+import {
+  AppBar,
+  Button,
+  Container,
+  CssBaseline,
+  Grid,
+  Stack,
+  Toolbar,
+} from '@mui/material';
 import { StoreState } from './reducers';
-import { User } from './modules/auth/user';
-
-interface AppProps {
-  customers?: Customer[]; //fix optional
-}
-
-interface TopNavigationBarProps {
-  auth: User | null;
-}
 
 const AuthenticatedButtons = () => {
   return (
@@ -32,52 +30,49 @@ const NotAuthenticatedButtons = () => {
   );
 };
 
-const TopNavigationBar = ({ auth }: TopNavigationBarProps) => {
+const TopNavigationBar = () => {
+  const auth = useSelector((state: StoreState) => state.auth);
+
   return (
     <div>
-      <Grid container spacing={1}>
-        <Grid item xs={4}>
-          <Button component={RouterLink} to="/">
-            Home
-          </Button>
-        </Grid>
+      <AppBar
+        position="absolute"
+        color="default"
+        elevation={0}
+        sx={{
+          position: 'relative',
+          borderBottom: (t) => `1px solid ${t.palette.divider}`,
+        }}
+      >
+        <Toolbar>
+          <Grid container spacing={1}>
+            <Grid item xs={4}>
+              <Button component={RouterLink} to="/">
+                Home
+              </Button>
+            </Grid>
 
-        <Grid item xs={8}>
-          <Stack direction={'row-reverse'}>
-            {auth && <AuthenticatedButtons />}
-            {!auth && <NotAuthenticatedButtons />}
-          </Stack>
-        </Grid>
-      </Grid>
+            <Grid item xs={8}>
+              <Stack direction={'row-reverse'}>
+                {auth && <AuthenticatedButtons />}
+                {!auth && <NotAuthenticatedButtons />}
+              </Stack>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 };
 
-interface AppProps {
-  customers?: Customer[]; //fix optional
-  auth: User | null;
-}
-
-const _App = (props: AppProps): JSX.Element => {
+export const App = (): JSX.Element => {
   return (
     <React.Fragment>
       <CssBaseline />
       <Container>
-        <TopNavigationBar auth={props.auth} />
+        <TopNavigationBar />
         <Outlet />
       </Container>
     </React.Fragment>
   );
 };
-
-interface AppStateToProps {
-  auth: User | null;
-}
-
-const mapStateToProps = ({ auth }: StoreState): AppStateToProps => {
-  return {
-    auth: null,
-  };
-};
-
-export const App = connect(mapStateToProps)(_App);

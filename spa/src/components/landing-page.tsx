@@ -1,16 +1,14 @@
+import { useSelector } from 'react-redux';
 import { SignIn } from '../modules/auth/sign-in';
-import { User } from '../modules/auth/user';
 import { CustomersHome } from '../modules/crm/customers-home';
-import { customersMock } from '../modules/crm/customers.mock';
+import { StoreState } from '../reducers';
 
-interface LandingPageProps {
-  auth: User | null;
-}
+export const LandingPage = () => {
+  const auth = useSelector((state: StoreState) => state.auth);
 
-export const LandingPage = ({ auth }: LandingPageProps) => {
   return (
     <>
-      {auth && <CustomersHome customers={customersMock} />}
+      {auth && <CustomersHome />}
       {!auth && <SignIn />}
     </>
   );
