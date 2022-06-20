@@ -6,8 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import App from './App';
 import { reducers } from './reducers';
-import { CustomersHome } from './modules/crm/customers-home';
-import { customersMock } from './modules/crm/customers.mock';
+import { LandingPage } from './components/landing-page';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
@@ -17,10 +16,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route
-            path="/"
-            element={<CustomersHome customers={customersMock} />}
-          />
+          <Route path="/" element={<LandingPage auth={null} />} />
         </Route>
       </Routes>
     </BrowserRouter>
