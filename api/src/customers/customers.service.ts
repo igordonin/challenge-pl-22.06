@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ObjectId } from 'mongodb';
 import { Customer } from './customer.entity';
 import { CreateCustomerDto } from './dtos/create-customer.dto';
 
@@ -17,5 +18,9 @@ export class CustomersService {
 
   findAll() {
     return this.repository.find();
+  }
+
+  findOneById(id: string) {
+    return this.repository.findOneBy({ _id: new ObjectId(id) });
   }
 }

@@ -1,18 +1,11 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ObjectID,
-  ObjectIdColumn,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 import { Company } from './company.embedded';
 import { Kpis } from './kpis.embedded';
 
 @Entity()
 export class Customer {
   @ObjectIdColumn()
-  id: ObjectID;
+  _id: ObjectID;
 
   @Column()
   fullName: string;
