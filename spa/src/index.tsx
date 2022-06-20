@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import { App } from './app';
 import { reducers } from './reducers';
 import { LandingPage } from './components/landing-page';
+import { SignUp } from './modules/auth/sign-up';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
@@ -16,7 +17,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="/" element={<LandingPage auth={null} />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/" element={<LandingPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
