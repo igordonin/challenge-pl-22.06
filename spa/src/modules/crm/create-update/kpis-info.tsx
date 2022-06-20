@@ -3,7 +3,7 @@ import * as ReactRedux from 'react-redux';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { StoreState } from '../../../root-reducer';
-import { KpisModel } from './customers.types';
+import { KpisModel } from './create-update.types';
 import { saveKpisStep } from './create-update.state';
 
 export const KpisInfo = () => {

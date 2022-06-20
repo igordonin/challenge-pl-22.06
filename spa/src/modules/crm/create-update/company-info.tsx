@@ -3,7 +3,7 @@ import * as ReactRedux from 'react-redux';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { StoreState } from '../../../root-reducer';
-import { CompanyInfoModel } from './customers.types';
+import { CompanyInfoModel } from './create-update.types';
 import { saveCompanyInfoStep } from './create-update.state';
 
 export const CompanyInfo = () => {

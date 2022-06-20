@@ -4,7 +4,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { PersonalInfoModel } from './customers.types';
+import { PersonalInfoModel } from './create-update.types';
 import { savePersonalInfoStep } from './create-update.state';
 import { StoreState } from '../../../root-reducer';
 

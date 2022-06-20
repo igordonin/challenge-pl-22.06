@@ -3,7 +3,7 @@ import {
   CreateCustomerStepsModel,
   KpisModel,
   PersonalInfoModel,
-} from './customers.types';
+} from './create-update.types';
 
 enum ActionTypes {
   SAVE_PERSONAL_INFO = '@challenge/crm/customers/create-update/SAVE_PERSONAL_INFO',
