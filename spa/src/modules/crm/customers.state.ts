@@ -1,5 +1,4 @@
 import { Customer } from './customer';
-import { customersMock } from './customers.mock';
 
 enum ActionTypes {
   FETCH_CUSTOMERS = '@challenge/crm/customers/FETCH_CUSTOMERS',
@@ -34,11 +33,10 @@ export default function reducer(
   }
 }
 
-// TODO: Refatorar depois de conectar com a API
-export const fetchCustomers = () => {
+export const fetchCustomers = (customers: Customer[]) => {
   return {
     type: ActionTypes.FETCH_CUSTOMERS,
-    payload: customersMock,
+    payload: customers,
   };
 };
 
