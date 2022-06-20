@@ -1,19 +1,22 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import * as ReactRedux from 'react-redux';
 import { Link } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import {
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  CssBaseline,
+  FormControlLabel,
+  TextField,
+  Typography,
+  Stack,
+  Alert,
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { signIn } from './auth.state';
-import { Stack } from '@mui/material';
+import useRequest from '../../hooks/use-request';
 
 interface ControlledFieldsProps {
   value: string;
@@ -86,14 +89,23 @@ const BottomMenu = () => {
 };
 
 export const SignIn = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = ReactRedux.useDispatch();
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const { doRequest, errors } = useRequest({
+    url: 'http://localhost:3000/api/auth/signin',
+    method: 'post',
+    body: { email, password },
+    onSuccess: () => {
+      dispatch(signIn({ email, password }));
+    },
+  });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(signIn({ email, password }));
+    await doRequest();
   };
 
   return (
@@ -122,6 +134,7 @@ export const SignIn = (): JSX.Element => {
             value={password}
             onChange={(e: any) => setPassword(e.target.value)}
           />
+          {errors && <Alert severity="error">Invalid credentials</Alert>}
           <RememberMe />
           <SignInButton />
           <BottomMenu />

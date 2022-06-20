@@ -6,7 +6,7 @@ enum AuthActionTypes {
   SIGN_OUT = '@challenge/auth-core/SIGN_OUT',
 }
 
-export interface AuthAction {
+interface AuthAction {
   type: AuthActionTypes;
   payload: User | null;
 }
@@ -25,17 +25,34 @@ export default function reducer(state: User | null = null, action: AuthAction) {
   }
 }
 
-interface UserSignIn {
+interface UserCredentials {
   email: string;
   password: string;
 }
 
-export const signIn = (userSignIn: UserSignIn) => {
+export const signIn = (credentials: UserCredentials) => {
   return {
     type: AuthActionTypes.SIGN_IN,
     payload: {
-      id: 1,
-      email: 'teste',
+      id: 'response.data.id',
+      email: 'response.data.email',
     },
+  };
+};
+
+export const signUp = (credentials: UserCredentials) => {
+  return {
+    type: AuthActionTypes.SIGN_UP,
+    payload: {
+      id: 'response.data.id',
+      email: 'response.data.email',
+    },
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: AuthActionTypes.SIGN_OUT,
+    payload: null,
   };
 };

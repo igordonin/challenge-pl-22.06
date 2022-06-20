@@ -1,15 +1,20 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import * as ReactRedux from 'react-redux';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import {
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Grid,
+  TextField,
+  Typography,
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { Link as RouterLink } from 'react-router-dom';
+import { signUp } from './auth.state';
+import useRequest from '../../hooks/use-request';
 
 interface ControlledFieldProps {
   value: string;
@@ -77,21 +82,34 @@ const BottomMenu = () => {
 };
 
 export const SignUp = (): JSX.Element => {
-  const dispatch = useDispatch();
-
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [passwordMismatch, setPasswordMismatch] = React.useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const dispatch = ReactRedux.useDispatch();
+  const navigate = useNavigate();
+
+  const { doRequest, errors } = useRequest({
+    url: 'http://localhost:3000/api/auth/signup',
+    method: 'post',
+    body: { email, password },
+    onSuccess: () => {
+      dispatch(signUp({ email, password }));
+      navigate('/');
+    },
+  });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // TODO: Implement validation
     if (password !== confirmPassword) {
+      setPasswordMismatch(true);
       return;
     }
 
-    // dispatch(signIn({ email, password }));
+    setPasswordMismatch(false);
+    doRequest();
   };
 
   return (
@@ -128,6 +146,14 @@ export const SignUp = (): JSX.Element => {
             name={'confirm-password'}
             label={'Confirm Password'}
           />
+          {errors && (
+            <Alert severity="error">
+              {errors.message || 'Invalid e-mail and/or password'}
+            </Alert>
+          )}
+          {passwordMismatch && (
+            <Alert severity="error">Passwords do not match</Alert>
+          )}
           <SignUpButton />
           <BottomMenu />
         </Box>
