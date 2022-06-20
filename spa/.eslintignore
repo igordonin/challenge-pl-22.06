@@ -1,0 +1,6 @@
+/**/*.d.ts
+static
+node_modules
+public
+coverage
+**/*.snap
