@@ -3,20 +3,19 @@ import * as ReactRedux from 'react-redux';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { StoreState } from '../../../reducers';
-import { CompanyInfoModel } from './customers.types';
-import { saveCompanyInfoStep } from './create-update.state';
+import { KpisModel } from './customers.types';
+import { saveKpisStep } from './create-update.state';
 
 export const KpisInfo = () => {
   const initialValue = ReactRedux.useSelector((state: StoreState) => {
-    return state.createUpdateCustomer.companyInfo;
+    return state.createUpdateCustomer.kpis;
   });
 
-  const [companyInfo, setCompanyInfo] =
-    React.useState<CompanyInfoModel>(initialValue);
+  const [model, setModel] = React.useState<KpisModel>(initialValue);
 
   const setProperty = (name: string, value: string | null | undefined) => {
-    setCompanyInfo({
-      ...companyInfo,
+    setModel({
+      ...model,
       [name]: value,
     });
   };
@@ -25,47 +24,64 @@ export const KpisInfo = () => {
 
   React.useEffect(() => {
     return () => {
-      dispatch(saveCompanyInfoStep(companyInfo));
+      dispatch(saveKpisStep(model));
     };
-  }, [companyInfo]);
+  }, [model]);
 
-  const { companyName, companyCountry, companyWebsite } = companyInfo;
+  const {
+    customerEffortScore,
+    customerSatisfactionScore,
+    leadScore,
+    netPromoterScore,
+  } = model;
 
   return (
     <React.Fragment>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
-            value={companyName}
+            value={customerEffortScore}
             onChange={(e) => {
-              setProperty('companyName', e.target.value);
+              setProperty('customerEffortScore', e.target.value);
             }}
             required
-            label="Company Name"
+            label="Customer Effort Score"
             fullWidth
             variant="standard"
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
-            value={companyCountry}
+            value={customerSatisfactionScore}
             onChange={(e) => {
-              setProperty('companyCountry', e.target.value);
+              setProperty('customerSatisfactionScore', e.target.value);
             }}
             required
-            label="Country"
+            label="Customer Satisfaction Score"
             fullWidth
             variant="standard"
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <TextField
-            value={companyWebsite}
+            value={leadScore}
             onChange={(e) => {
-              setProperty('companyWebsite', e.target.value);
+              setProperty('leadScore', e.target.value);
             }}
             required
-            label="Website"
+            label="Lead Score"
+            fullWidth
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            value={netPromoterScore}
+            onChange={(e) => {
+              setProperty('netPromoterScore', e.target.value);
+            }}
+            required
+            label="Net Promoter Score"
             fullWidth
             variant="standard"
           />

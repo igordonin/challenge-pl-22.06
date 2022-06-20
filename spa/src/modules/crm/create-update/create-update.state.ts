@@ -1,25 +1,35 @@
 import {
   CompanyInfoModel,
   CreateCustomerStepsModel,
+  KpisModel,
   PersonalInfoModel,
 } from './customers.types';
 
 enum ActionTypes {
   SAVE_PERSONAL_INFO = '@challenge/crm/customers/create-update/SAVE_PERSONAL_INFO',
   SAVE_COMPANY_INFO = '@challenge/crm/customers/create-update/SAVE_COMPANY_INFO',
+  SAVE_KPIS_INFO = '@challenge/crm/customers/create-update/SAVE_KPIS_INFO',
 }
 
-export interface SavePersonalInfoAction {
+interface SavePersonalInfoAction {
   type: ActionTypes.SAVE_PERSONAL_INFO;
   payload: PersonalInfoModel;
 }
 
-export interface SaveCompanyInfoAction {
+interface SaveCompanyInfoAction {
   type: ActionTypes.SAVE_COMPANY_INFO;
   payload: CompanyInfoModel;
 }
 
-type SaveCreateCustomerStep = SavePersonalInfoAction | SaveCompanyInfoAction;
+interface SaveKpisInfoAction {
+  type: ActionTypes.SAVE_KPIS_INFO;
+  payload: KpisModel;
+}
+
+type SaveCreateCustomerStep =
+  | SavePersonalInfoAction
+  | SaveCompanyInfoAction
+  | SaveKpisInfoAction;
 
 const initialState: CreateCustomerStepsModel = {
   personalInfo: {
@@ -60,6 +70,12 @@ export default function reducer(
         companyInfo: action.payload,
       };
 
+    case ActionTypes.SAVE_KPIS_INFO:
+      return {
+        ...state,
+        kpis: action.payload,
+      };
+
     default:
       return state;
   }
@@ -75,6 +91,13 @@ export const savePersonalInfoStep = (model: PersonalInfoModel) => {
 export const saveCompanyInfoStep = (model: CompanyInfoModel) => {
   return {
     type: ActionTypes.SAVE_COMPANY_INFO,
+    payload: model,
+  };
+};
+
+export const saveKpisStep = (model: KpisModel) => {
+  return {
+    type: ActionTypes.SAVE_KPIS_INFO,
     payload: model,
   };
 };
