@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Typography from '@mui/material/Typography';
+import {
+  Button,
+  CssBaseline,
+  Box,
+  Container,
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+  Typography,
+} from '@mui/material';
 import { PersonalInfo } from './personal-info';
 import { CompanyInfo } from './company-info';
 import { KpisInfo } from './kpis-info';
@@ -29,7 +31,6 @@ function getStepContent(step: number) {
 }
 
 export const CustomersCreateUpdate = () => {
-  //
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -39,10 +40,9 @@ export const CustomersCreateUpdate = () => {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-  //
 
   return (
-    <div>
+    <>
       <CssBaseline />
 
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -103,6 +103,6 @@ export const CustomersCreateUpdate = () => {
           </React.Fragment>
         </Paper>
       </Container>
-    </div>
+    </>
   );
 };
