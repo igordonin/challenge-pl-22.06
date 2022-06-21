@@ -17,6 +17,7 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { signIn } from './auth.state';
 import useRequest from '../../hooks/use-request';
+import { User } from './user';
 
 interface ControlledFieldsProps {
   value: string;
@@ -98,8 +99,8 @@ export const SignIn = (): JSX.Element => {
     url: '/auth/signin',
     method: 'post',
     body: { email, password },
-    onSuccess: () => {
-      dispatch(signIn({ email, password }));
+    onSuccess: (user: User) => {
+      dispatch(signIn(user));
     },
   });
 
