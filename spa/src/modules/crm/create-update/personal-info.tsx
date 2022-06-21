@@ -21,7 +21,7 @@ export const PersonalInfo = () => {
     return () => {
       dispatch(savePersonalInfoStep(personalInfo));
     };
-  }, []);
+  }, [personalInfo]);
 
   const setProperty = (name: string, value: string | null | undefined) => {
     setPersonalInfo({

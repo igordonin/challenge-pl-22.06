@@ -9,7 +9,7 @@ interface ClientRequest {
 }
 
 const baseClient = axios.create({
-  baseURL: process.env.API_BASE_URL || 'http://localhost:3000/api',
+  baseURL: 'http://challenge.pl/api',
 });
 
 const useRequest = ({ url, method, body, onSuccess }: ClientRequest) => {
