@@ -12,6 +12,8 @@ import { UsersModule } from './users/users.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieSession = require('cookie-session');
 
+const cookieKey = process.env.COOKIE_KEY || 'asdfghjkl';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -49,7 +51,7 @@ export class AppModule {
     consumer
       .apply(
         cookieSession({
-          keys: ['asdfghjkl'],
+          keys: [cookieKey],
           // TODO
           // domain: 'http://localhost:3000',
           secure: false,

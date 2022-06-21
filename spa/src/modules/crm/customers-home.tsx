@@ -35,7 +35,7 @@ export const CustomersHome = () => {
   const dispatch = useDispatch();
 
   const { doRequest } = useRequest({
-    url: 'http://localhost:3000/api/customers',
+    url: '/customers',
     method: 'get',
     onSuccess: (data: any) => {
       dispatch(fetchCustomers(data));

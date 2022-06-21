@@ -8,6 +8,10 @@ interface ClientRequest {
   onSuccess?: Function;
 }
 
+const baseClient = axios.create({
+  baseURL: process.env.API_BASE_URL || 'http://localhost:3000/api',
+});
+
 const useRequest = ({ url, method, body, onSuccess }: ClientRequest) => {
   const [errors, setErrors] = React.useState<AxiosError | null>(null);
 
@@ -15,7 +19,7 @@ const useRequest = ({ url, method, body, onSuccess }: ClientRequest) => {
     try {
       setErrors(null);
 
-      const response = await axios[method](url, { ...body, ...props });
+      const response = await baseClient[method](url, { ...body, ...props });
 
       if (onSuccess) {
         onSuccess(response.data);

@@ -50,9 +50,7 @@ export const CustomersCreateUpdate = () => {
   );
 
   const { doRequest, errors } = useRequest({
-    url: _id
-      ? `http://localhost:3000/api/customers/${_id}`
-      : 'http://localhost:3000/api/customers',
+    url: _id ? `/customers/${_id}` : '/customers',
     method: _id ? 'put' : 'post',
     body: {
       ...personalInfo,

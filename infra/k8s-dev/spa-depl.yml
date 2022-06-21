@@ -15,6 +15,14 @@ spec:
       containers:
         - name: spa
           image: us.gcr.io/challenge-pl/spa
+          env: 
+            - name: COOKIE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cookie-key
+                  key: COOKIE_KEY
+            - name: API_BASE_URL
+              value: 'api-srv'
 ---
 apiVersion: v1
 kind: Service

@@ -95,7 +95,7 @@ export const SignIn = (): JSX.Element => {
   const [password, setPassword] = React.useState('');
 
   const { doRequest, errors } = useRequest({
-    url: 'http://localhost:3000/api/auth/signin',
+    url: '/auth/signin',
     method: 'post',
     body: { email, password },
     onSuccess: () => {
