@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import {
-  Button,
-  CssBaseline,
-  Grid,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
+import { Button, CssBaseline, Grid, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../root-reducer';
 import { fetchCustomers } from './customers.state';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useRequest from '../../hooks/use-request';
+import {
+  loadCustomerUpdateSteps,
+  resetSteps,
+} from './create-update/create-update.state';
 
 const columns: GridColDef[] = [
   {
@@ -36,9 +34,33 @@ export const CustomersHome = () => {
   const customers = useSelector((state: StoreState) => state.customers);
   const dispatch = useDispatch();
 
+  const { doRequest } = useRequest({
+    url: 'http://localhost:3000/api/customers',
+    method: 'get',
+    onSuccess: (data: any) => {
+      dispatch(fetchCustomers(data));
+    },
+  });
+
   React.useEffect(() => {
-    dispatch(fetchCustomers());
-  }, [customers]);
+    doRequest();
+  }, []);
+
+  const navigate = useNavigate();
+
+  const handleDoubleClick = (
+    params: GridRowParams,
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    const selectedCustomer = customers.find((c) => c._id === params.id);
+    dispatch(loadCustomerUpdateSteps(selectedCustomer!));
+    navigate(`/customers/${params.id}`);
+  };
+
+  const handleNewCustomer = () => {
+    dispatch(resetSteps());
+    navigate('/customers/new');
+  };
 
   return (
     <>
@@ -53,7 +75,7 @@ export const CustomersHome = () => {
 
         <Grid item xs={6}>
           <Stack direction="row-reverse" spacing={2}>
-            <Button component={Link} to="/customers/new" variant="contained">
+            <Button onClick={() => handleNewCustomer()} variant="contained">
               New Customer
             </Button>
           </Stack>
@@ -63,7 +85,12 @@ export const CustomersHome = () => {
       <div style={{ height: 400, width: '100%' }}>
         <div style={{ display: 'flex', height: '100%' }}>
           <div style={{ flexGrow: 1 }}>
-            <DataGrid rows={customers} columns={columns} />
+            <DataGrid
+              rows={customers}
+              columns={columns}
+              getRowId={(row) => row._id}
+              onRowDoubleClick={handleDoubleClick}
+            />
           </div>
         </div>
       </div>

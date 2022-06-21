@@ -3,14 +3,23 @@ import { AppBar, Button, Grid, Stack, Toolbar } from '@mui/material';
 import { StoreState } from '../root-reducer';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { signOut } from '../modules/auth/auth.state';
+import useRequest from '../hooks/use-request';
 
 const AuthenticatedButtons = () => {
   const dispatch = ReactRedux.useDispatch();
   const navigate = useNavigate();
 
-  const onClickHandler = () => {
-    dispatch(signOut());
-    navigate('/');
+  const { doRequest, errors } = useRequest({
+    url: 'http://localhost:3000/api/auth/signout',
+    method: 'post',
+    onSuccess: () => {
+      dispatch(signOut());
+      navigate('/');
+    },
+  });
+
+  const onClickHandler = async () => {
+    await doRequest();
   };
 
   return <Button onClick={() => onClickHandler()}>Sign Out</Button>;

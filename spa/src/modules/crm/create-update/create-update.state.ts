@@ -1,3 +1,4 @@
+import { Customer } from '../customer';
 import {
   CompanyInfoModel,
   CreateCustomerStepsModel,
@@ -6,9 +7,15 @@ import {
 } from './create-update.types';
 
 enum ActionTypes {
+  RESET_STEPS = '@challenge/crm/customers/create-update/RESET_STEPS',
+  LOAD_CUSTOMER_UPDATE = '@challenge/crm/customers/create-update/LOAD_CUSTOMER_UPDATE',
   SAVE_PERSONAL_INFO = '@challenge/crm/customers/create-update/SAVE_PERSONAL_INFO',
   SAVE_COMPANY_INFO = '@challenge/crm/customers/create-update/SAVE_COMPANY_INFO',
   SAVE_KPIS_INFO = '@challenge/crm/customers/create-update/SAVE_KPIS_INFO',
+}
+
+interface ResetStepsAction {
+  type: ActionTypes.RESET_STEPS;
 }
 
 interface SavePersonalInfoAction {
@@ -26,12 +33,20 @@ interface SaveKpisInfoAction {
   payload: KpisModel;
 }
 
+interface LoadCustomerUpdateStep {
+  type: ActionTypes.LOAD_CUSTOMER_UPDATE;
+  payload: Customer;
+}
+
 type SaveCreateCustomerStep =
+  | ResetStepsAction
+  | LoadCustomerUpdateStep
   | SavePersonalInfoAction
   | SaveCompanyInfoAction
   | SaveKpisInfoAction;
 
 const initialState: CreateCustomerStepsModel = {
+  _id: null,
   personalInfo: {
     firstName: '',
     lastName: '',
@@ -76,10 +91,34 @@ export default function reducer(
         kpis: action.payload,
       };
 
+    case ActionTypes.RESET_STEPS:
+      return initialState;
+
+    case ActionTypes.LOAD_CUSTOMER_UPDATE:
+      return {
+        _id: action.payload._id,
+        personalInfo: {
+          firstName: action.payload.fullName.split(' ')[0],
+          lastName: action.payload.fullName.split(' ').splice(1).join(' '),
+          phoneNumber: action.payload.phoneNumber,
+          email: action.payload.email,
+          jobTitle: action.payload.jobTitle,
+          lastContactUtcDate: action.payload.lastContactUtcDate,
+        },
+        companyInfo: { ...action.payload.company },
+        kpis: { ...action.payload.kpis },
+      };
+
     default:
       return state;
   }
 }
+
+export const resetSteps = () => {
+  return {
+    type: ActionTypes.RESET_STEPS,
+  };
+};
 
 export const savePersonalInfoStep = (model: PersonalInfoModel) => {
   return {
@@ -99,5 +138,12 @@ export const saveKpisStep = (model: KpisModel) => {
   return {
     type: ActionTypes.SAVE_KPIS_INFO,
     payload: model,
+  };
+};
+
+export const loadCustomerUpdateSteps = (customer: Customer) => {
+  return {
+    type: ActionTypes.LOAD_CUSTOMER_UPDATE,
+    payload: customer,
   };
 };

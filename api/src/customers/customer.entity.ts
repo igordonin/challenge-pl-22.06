@@ -1,10 +1,11 @@
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import { Company } from './company.embedded';
+import { Kpis } from './kpis.embedded';
 
-// TODO would be great to have a tagging feature
 @Entity()
 export class Customer {
   @ObjectIdColumn()
-  id: ObjectID;
+  _id: ObjectID;
 
   @Column()
   fullName: string;
@@ -21,26 +22,9 @@ export class Customer {
   @Column()
   lastContactUtcDate: string;
 
-  // TODO extract company data to its own entity
-  @Column()
-  companyName: string;
+  @Column(() => Company)
+  company?: Company;
 
-  @Column()
-  companyCountry: string;
-
-  @Column()
-  companyWebsite: string;
-
-  // TODO extract kpis
-  @Column()
-  netPromoterScore: number;
-
-  @Column()
-  customerSatisfactionScore: number;
-
-  @Column()
-  customerEffortScore: number;
-
-  @Column()
-  leadScore: number;
+  @Column(() => Kpis)
+  kpis?: Kpis;
 }

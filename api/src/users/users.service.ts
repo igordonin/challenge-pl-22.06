@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ObjectID, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+import { ObjectId } from 'mongodb';
 import { CreateUserDto } from './dtos/create-user-dto';
 import { User } from './user.entity';
 
@@ -15,7 +16,7 @@ export class UsersService {
   }
 
   findOneById(id: string) {
-    return this.repository.findOneBy({ id: new ObjectID(id) });
+    return this.repository.findOneBy({ id: new ObjectId(id) });
   }
 
   findOneByEmail(email: string) {

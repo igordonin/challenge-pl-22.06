@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as ReactRedux from 'react-redux';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
+import { Grid, TextField } from '@mui/material';
 import { StoreState } from '../../../root-reducer';
 import { KpisModel } from './create-update.types';
 import { saveKpisStep } from './create-update.state';
@@ -44,7 +43,6 @@ export const KpisInfo = () => {
             onChange={(e) => {
               setProperty('customerEffortScore', e.target.value);
             }}
-            required
             label="Customer Effort Score"
             fullWidth
             variant="standard"
@@ -56,7 +54,6 @@ export const KpisInfo = () => {
             onChange={(e) => {
               setProperty('customerSatisfactionScore', e.target.value);
             }}
-            required
             label="Customer Satisfaction Score"
             fullWidth
             variant="standard"
@@ -68,7 +65,6 @@ export const KpisInfo = () => {
             onChange={(e) => {
               setProperty('leadScore', e.target.value);
             }}
-            required
             label="Lead Score"
             fullWidth
             variant="standard"
@@ -80,7 +76,6 @@ export const KpisInfo = () => {
             onChange={(e) => {
               setProperty('netPromoterScore', e.target.value);
             }}
-            required
             label="Net Promoter Score"
             fullWidth
             variant="standard"
