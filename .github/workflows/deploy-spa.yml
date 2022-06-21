@@ -3,7 +3,7 @@ name: deploy-spa
 on: 
   push:
     branches:
-      - master:
+      - master
   paths:
     - 'spa/**'
 
