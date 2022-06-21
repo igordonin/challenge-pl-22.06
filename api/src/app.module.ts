@@ -49,7 +49,7 @@ export class AppModule {
     consumer
       .apply(
         cookieSession({
-          keys: ['asdfghjkl'],
+          keys: [process.env.COOKIE_KEY],
           // TODO
           // domain: 'http://localhost:3000',
           secure: false,

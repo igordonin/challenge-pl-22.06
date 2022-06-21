@@ -10,7 +10,7 @@ const AuthenticatedButtons = () => {
   const navigate = useNavigate();
 
   const { doRequest, errors } = useRequest({
-    url: 'http://localhost:3000/api/auth/signout',
+    url: '/auth/signout',
     method: 'post',
     onSuccess: () => {
       dispatch(signOut());

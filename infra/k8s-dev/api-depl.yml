@@ -21,6 +21,11 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: jwt_key
+            - name: COOKIE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cookie-key
+                  key: COOKIE_KEY
             - name: DB_HOST
               value: 'api-mongo-srv'
 ---

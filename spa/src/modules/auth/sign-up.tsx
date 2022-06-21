@@ -91,7 +91,7 @@ export const SignUp = (): JSX.Element => {
   const navigate = useNavigate();
 
   const { doRequest, errors } = useRequest({
-    url: 'http://localhost:3000/api/auth/signup',
+    url: '/auth/signup',
     method: 'post',
     body: { email, password },
     onSuccess: () => {

@@ -21,6 +21,7 @@ import useRequest from '../../../hooks/use-request';
 import { createCustomer } from '../customers.state';
 import { StoreState } from '../../../root-reducer';
 import { resetSteps } from './create-update.state';
+import { Customer } from '../customer';
 
 const steps = ['Personal Info', 'Company Info', 'KPIs'];
 
@@ -50,9 +51,7 @@ export const CustomersCreateUpdate = () => {
   );
 
   const { doRequest, errors } = useRequest({
-    url: _id
-      ? `http://localhost:3000/api/customers/${_id}`
-      : 'http://localhost:3000/api/customers',
+    url: _id ? `/customers/${_id}` : '/customers',
     method: _id ? 'put' : 'post',
     body: {
       ...personalInfo,
@@ -60,10 +59,9 @@ export const CustomersCreateUpdate = () => {
       company: companyInfo,
       kpis,
     },
-    // TODO fix this any
-    onSuccess: (data: any) => {
+    onSuccess: (customer: Customer) => {
       dispatch(resetSteps());
-      dispatch(createCustomer(data));
+      dispatch(createCustomer(customer));
       navigate('/');
     },
   });

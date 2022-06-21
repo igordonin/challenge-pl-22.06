@@ -12,7 +12,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dtos/create-customer.dto';
 
-// @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 @Controller('customers')
 export class CustomersController {
   constructor(private customersService: CustomersService) {}

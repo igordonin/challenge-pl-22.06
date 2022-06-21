@@ -4,7 +4,7 @@ import { Button, CssBaseline, Grid, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../root-reducer';
 import { fetchCustomers } from './customers.state';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useRequest from '../../hooks/use-request';
 import {
   loadCustomerUpdateSteps,
@@ -35,7 +35,7 @@ export const CustomersHome = () => {
   const dispatch = useDispatch();
 
   const { doRequest } = useRequest({
-    url: 'http://localhost:3000/api/customers',
+    url: '/customers',
     method: 'get',
     onSuccess: (data: any) => {
       dispatch(fetchCustomers(data));
