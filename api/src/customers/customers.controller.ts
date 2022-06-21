@@ -5,6 +5,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../guards/auth.guard';
@@ -19,6 +20,20 @@ export class CustomersController {
   @Post()
   create(@Body() customerDto: CreateCustomerDto) {
     return this.customersService.create(customerDto);
+  }
+
+  @Put('/:id')
+  async update(
+    @Param('id') id: string,
+    @Body() customerDto: CreateCustomerDto,
+  ) {
+    const customer = await this.customersService.update(id, customerDto);
+
+    if (!customer) {
+      throw new NotFoundException(`Customer identified by ${id} not found`);
+    }
+
+    return customer;
   }
 
   @Get()

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ObjectId } from 'mongodb';
@@ -13,6 +13,18 @@ export class CustomersService {
 
   create(customerDto: CreateCustomerDto) {
     const customer = this.repository.create(customerDto);
+    return this.repository.save(customer);
+  }
+
+  async update(id: string, customerDto: CreateCustomerDto) {
+    const customer = await this.findOneById(id);
+
+    if (!customer) {
+      throw new NotFoundException(`Customer identified by ${id} not found`);
+    }
+
+    Object.assign(customer, customerDto);
+
     return this.repository.save(customer);
   }
 
