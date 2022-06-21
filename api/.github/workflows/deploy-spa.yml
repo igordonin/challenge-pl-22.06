@@ -1,0 +1,25 @@
+name: deploy-spa
+
+on: 
+  push:
+    branches:
+      - master:
+  paths:
+    - 'spa/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd spa && docker build -t igordonin/challenge-pl-spa .
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push igordonin/challenge-pl-spa
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DOCTL_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save k8s-desafio-pagaleve
+      - run: kubectl rollout restart deployment spa-depl

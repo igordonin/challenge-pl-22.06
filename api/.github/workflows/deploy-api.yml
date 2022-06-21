@@ -1,0 +1,25 @@
+name: deploy-api
+
+on: 
+  push:
+    branches:
+      - master:
+  paths:
+    - 'api/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd api && docker build -t igordonin/challenge-pl-api .
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push igordonin/challenge-pl-api
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DOCTL_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save k8s-desafio-pagaleve
+      - run: kubectl rollout restart deployment api-depl
