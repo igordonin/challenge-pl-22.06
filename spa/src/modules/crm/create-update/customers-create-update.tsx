@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactRedux from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   CssBaseline,
@@ -38,14 +38,16 @@ function getStepContent(step: number) {
 }
 
 export const CustomersCreateUpdate = () => {
+  const dispatch = ReactRedux.useDispatch();
+  const navigate = useNavigate();
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const { _id, personalInfo, companyInfo, kpis } = ReactRedux.useSelector(
-    (state: StoreState) => state.createUpdateCustomer
+    (state: StoreState) => {
+      return state.createUpdateCustomer;
+    }
   );
-
-  const dispatch = ReactRedux.useDispatch();
-  const navigate = useNavigate();
 
   const { doRequest, errors } = useRequest({
     url: _id
@@ -77,6 +79,10 @@ export const CustomersCreateUpdate = () => {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const handleCancel = () => {
+    navigate('/');
   };
 
   return (
@@ -125,8 +131,7 @@ export const CustomersCreateUpdate = () => {
                 )}
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                   <Button
-                    component={Link}
-                    to="/"
+                    onClick={() => handleCancel()}
                     sx={{ mt: 3, ml: 1 }}
                     color={'secondary'}
                   >

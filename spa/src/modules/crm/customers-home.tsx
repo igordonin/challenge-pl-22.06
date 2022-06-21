@@ -6,7 +6,10 @@ import { StoreState } from '../../root-reducer';
 import { fetchCustomers } from './customers.state';
 import { Link, useNavigate } from 'react-router-dom';
 import useRequest from '../../hooks/use-request';
-import { loadCustomerUpdateSteps } from './create-update/create-update.state';
+import {
+  loadCustomerUpdateSteps,
+  resetSteps,
+} from './create-update/create-update.state';
 
 const columns: GridColDef[] = [
   {
@@ -54,6 +57,11 @@ export const CustomersHome = () => {
     navigate(`/customers/${params.id}`);
   };
 
+  const handleNewCustomer = () => {
+    dispatch(resetSteps());
+    navigate('/customers/new');
+  };
+
   return (
     <>
       <CssBaseline />
@@ -67,7 +75,7 @@ export const CustomersHome = () => {
 
         <Grid item xs={6}>
           <Stack direction="row-reverse" spacing={2}>
-            <Button component={Link} to="/customers/new" variant="contained">
+            <Button onClick={() => handleNewCustomer()} variant="contained">
               New Customer
             </Button>
           </Stack>
