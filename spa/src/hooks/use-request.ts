@@ -9,7 +9,7 @@ interface ClientRequest {
 }
 
 const baseClient = axios.create({
-  baseURL: 'http://challenge.pl/api',
+  baseURL: 'http://ticketing-app-igordonin.xyz/api',
 });
 
 const useRequest = ({ url, method, body, onSuccess }: ClientRequest) => {
