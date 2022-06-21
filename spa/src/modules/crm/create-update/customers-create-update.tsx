@@ -40,7 +40,7 @@ function getStepContent(step: number) {
 export const CustomersCreateUpdate = () => {
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const { personalInfo, companyInfo, kpis } = ReactRedux.useSelector(
+  const { _id, personalInfo, companyInfo, kpis } = ReactRedux.useSelector(
     (state: StoreState) => state.createUpdateCustomer
   );
 
@@ -48,8 +48,10 @@ export const CustomersCreateUpdate = () => {
   const navigate = useNavigate();
 
   const { doRequest, errors } = useRequest({
-    url: 'http://localhost:3000/api/customers',
-    method: 'post',
+    url: _id
+      ? `http://localhost:3000/api/customers/${_id}`
+      : 'http://localhost:3000/api/customers',
+    method: _id ? 'put' : 'post',
     body: {
       ...personalInfo,
       fullName: `${personalInfo.firstName} ${personalInfo.lastName}`,
@@ -87,7 +89,7 @@ export const CustomersCreateUpdate = () => {
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
         >
           <Typography component="h1" variant="h4" align="center">
-            Create Customer
+            {_id ? 'Update Customer' : 'Create Customer'}
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (

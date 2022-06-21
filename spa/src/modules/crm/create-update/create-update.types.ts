@@ -21,6 +21,7 @@ export interface KpisModel {
 }
 
 export interface CreateCustomerStepsModel {
+  _id?: string | null;
   personalInfo: PersonalInfoModel;
   companyInfo: CompanyInfoModel;
   kpis: KpisModel;

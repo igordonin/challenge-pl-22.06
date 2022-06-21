@@ -20,6 +20,10 @@ root.render(
         <Route path="/" element={<App />}>
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/customers/new" element={<CustomersCreateUpdate />} />
+          <Route
+            path="/customers/:customerId"
+            element={<CustomersCreateUpdate />}
+          />
           <Route path="/" element={<LandingPage />} />
         </Route>
       </Routes>

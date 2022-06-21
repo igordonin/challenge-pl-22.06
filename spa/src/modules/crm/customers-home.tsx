@@ -1,18 +1,12 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridEditModes } from '@mui/x-data-grid';
-import {
-  Button,
-  CssBaseline,
-  Grid,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
+import { Button, CssBaseline, Grid, Stack, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../root-reducer';
 import { fetchCustomers } from './customers.state';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useRequest from '../../hooks/use-request';
+import { loadCustomerUpdateSteps } from './create-update/create-update.state';
 
 const columns: GridColDef[] = [
   {
@@ -49,6 +43,17 @@ export const CustomersHome = () => {
     doRequest();
   }, []);
 
+  const navigate = useNavigate();
+
+  const handleDoubleClick = (
+    params: GridRowParams,
+    event: React.MouseEvent<HTMLElement>
+  ) => {
+    const selectedCustomer = customers.find((c) => c._id === params.id);
+    dispatch(loadCustomerUpdateSteps(selectedCustomer!));
+    navigate(`/customers/${params.id}`);
+  };
+
   return (
     <>
       <CssBaseline />
@@ -76,6 +81,7 @@ export const CustomersHome = () => {
               rows={customers}
               columns={columns}
               getRowId={(row) => row._id}
+              onRowDoubleClick={handleDoubleClick}
             />
           </div>
         </div>
