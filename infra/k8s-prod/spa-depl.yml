@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spa
-          image: igordonin/spa
+          image: igordonin/challenge-pl-spa
           env: 
             - name: REACT_APP_API_BASE_URL
               value: 'api-srv'

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: igordonin/api
+          image: igordonin/challenge-pl-api
           env: 
             - name: JWT_KEY
               valueFrom:
