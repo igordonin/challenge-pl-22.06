@@ -21,6 +21,7 @@ import useRequest from '../../../hooks/use-request';
 import { createCustomer } from '../customers.state';
 import { StoreState } from '../../../root-reducer';
 import { resetSteps } from './create-update.state';
+import { Customer } from '../customer';
 
 const steps = ['Personal Info', 'Company Info', 'KPIs'];
 
@@ -58,10 +59,9 @@ export const CustomersCreateUpdate = () => {
       company: companyInfo,
       kpis,
     },
-    // TODO fix this any
-    onSuccess: (data: any) => {
+    onSuccess: (customer: Customer) => {
       dispatch(resetSteps());
-      dispatch(createCustomer(data));
+      dispatch(createCustomer(customer));
       navigate('/');
     },
   });
