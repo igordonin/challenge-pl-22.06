@@ -12,8 +12,6 @@ import { UsersModule } from './users/users.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieSession = require('cookie-session');
 
-console.log(process.env.COOKIE_KEY, process.env.REACT_APP_COOKIE_KEY);
-
 @Module({
   imports: [
     ConfigModule.forRoot({
