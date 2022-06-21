@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ObjectID } from 'typeorm';
+import { ObjectId } from 'mongodb';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
 import { UsersController } from './users.controller';
@@ -12,18 +12,16 @@ describe('UsersController', () => {
 
   beforeEach(async () => {
     usersServiceMock = {
-      // remove: () => {},
-      // update: () => {},
       findOneById: (id: string) => {
         return Promise.resolve({
-          id: new ObjectID(id),
+          id: new ObjectId(id),
           email: 'whatever@email.com',
           password: 'asdf',
         } as User);
       },
       findOneByEmail: (email: string) => {
         return Promise.resolve({
-          id: new ObjectID(),
+          id: new ObjectId(),
           email,
           password: 'asdf',
         } as User);
@@ -31,10 +29,9 @@ describe('UsersController', () => {
     };
 
     authServiceMock = {
-      // signup: () => {},
       authenticateUser: (email: string, password: string) => {
         return Promise.resolve({
-          id: new ObjectID(),
+          id: new ObjectId(),
           email,
           password,
         } as User);
@@ -63,11 +60,11 @@ describe('UsersController', () => {
   });
 
   it('find a user by id', async () => {
-    const id = Math.floor(Math.random() * 999);
-    const user = await controller.findUserById(id.toString());
+    const id = new ObjectId().toHexString();
+    const user = await controller.findUserById(id);
 
     expect(user).toBeDefined();
-    expect(user.id).toEqual(id);
+    expect(user.id.toString()).toEqual(id);
   });
 
   it('throws an error when does not find a user by id', async () => {
@@ -118,9 +115,8 @@ describe('UsersController', () => {
 
     const user = await controller.signin(userData, session);
 
-    expect(user.id).toEqual(1);
     expect(user.email).toEqual(userData.email);
     expect(user.password).toEqual(userData.password);
-    expect(session.userId).toEqual(1);
+    expect(session.userId).toEqual(user.id);
   });
 });

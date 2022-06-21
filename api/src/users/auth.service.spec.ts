@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { ObjectID } from 'typeorm';
+import { ObjectId } from 'mongodb';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { User } from './user.entity';
@@ -14,7 +14,7 @@ describe('AuthService', () => {
       findOneByEmail: () => Promise.resolve(null),
       create: (userDto: CreateUserDto) => {
         const { email, password } = userDto;
-        return Promise.resolve({ id: new ObjectID(), email, password });
+        return Promise.resolve({ id: new ObjectId(), email, password });
       },
     };
 
@@ -55,7 +55,7 @@ describe('AuthService', () => {
 
     usersServiceMock.findOneByEmail = () => {
       return Promise.resolve({
-        id: new ObjectID(),
+        id: new ObjectId(),
         email,
         password,
       } as User);
@@ -77,7 +77,7 @@ describe('AuthService', () => {
     // TODO: Hashing service could be another component in the DI layer
     const userWithHashedPassword = await service.signup(email, password);
 
-    const id = new ObjectID();
+    const id = new ObjectId();
 
     usersServiceMock.findOneByEmail = () => {
       return Promise.resolve({
@@ -113,7 +113,7 @@ describe('AuthService', () => {
 
     usersServiceMock.findOneByEmail = () => {
       return Promise.resolve({
-        id: new ObjectID(),
+        id: new ObjectId(),
         email,
         password: '@d1ff3r3ntP@ss',
       } as User);
